@@ -31,3 +31,6 @@ async def step(request: ActionRequest):
 @app.get("/state")
 async def state():
     return await env.get_state()
+@app.get("/")
+def home():
+    return {"message": "Medical Triage API is running 🚀"}
