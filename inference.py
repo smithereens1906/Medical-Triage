@@ -1,5 +1,5 @@
 import asyncio
-from env.triage_env import TriageEnv
+from env.environment import TriageEnv
 
 
 def simple_policy(patient):

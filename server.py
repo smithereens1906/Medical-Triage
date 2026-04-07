@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import asyncio
-from env.triage_env import TriageEnv
+from env.environment import TriageEnv
 
 app = FastAPI()
 
@@ -14,8 +13,7 @@ class ActionRequest(BaseModel):
 
 @app.post("/reset")
 async def reset():
-    result = await env.reset()
-    return result
+    return await env.reset()
 
 
 @app.post("/step")
@@ -27,3 +25,8 @@ async def step(request: ActionRequest):
         "done": done,
         "info": info
     }
+
+
+@app.get("/state")
+async def state():
+    return await env.get_state()

@@ -1,0 +1,13 @@
+name: medical-triage-env
+
+environment:
+  file: env/environment.py
+  class: TriageEnv
+
+tasks:
+  file: env/tasks.py
+  entry: get_tasks
+
+grader:
+  file: env/graders.py
+  entry: grade

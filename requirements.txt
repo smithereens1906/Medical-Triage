@@ -1,5 +1,6 @@
-openai
-numpy
 fastapi
 uvicorn
 pydantic
+numpy
+openai
+pyyaml
