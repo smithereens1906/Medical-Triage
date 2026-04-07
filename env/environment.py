@@ -7,16 +7,20 @@ class TriageEnv:
         self.patient = None
         self.done = False
 
-    async def reset(self):
+    async def reset(self, patient_data=None):
         self.available_doctors = 3
         self.available_icu = 2
         self.done = False
 
-        self.patient = {
-            "symptoms": random.choice(["chest pain", "fever", "injury"]),
-            "urgency": random.randint(1, 100),
-            "arrival_type": random.choice(["walk-in", "ambulance"])
-        }
+        if patient_data:
+            self.patient = patient_data
+        else:
+            self.patient = {
+                "symptoms": random.choice(["chest pain", "fever", "injury"]),
+                "urgency": random.randint(1, 100),
+                "arrival_type": random.choice(["walk-in", "ambulance"])
+            }
+
         return self.patient
 
     def route_department(self, symptoms):

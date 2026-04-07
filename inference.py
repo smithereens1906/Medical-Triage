@@ -1,52 +1,42 @@
 import asyncio
 from env.environment import TriageEnv
 
+async def run():
 
-def simple_policy(patient):
-    if patient["symptoms"] == "chest pain":
-        return "Cardiology"
-    elif patient["symptoms"] == "fever":
-        return "General Medicine"
-    elif patient["symptoms"] == "injury":
-        return "Orthopedics"
-    else:
-        return "General Medicine"
-
-
-async def main():
     env = TriageEnv()
-
-    total_reward = 0
-    steps = 5
 
     print("[START]")
 
-    for step in range(steps):
-        patient = await env.reset()
-        action = simple_policy(patient)
+    # 🔥 Take user input
+    symptoms = input("Enter symptoms (chest pain / fever / injury): ")
+    urgency = int(input("Enter urgency (1-100): "))
+    arrival = input("Enter arrival type (walk-in / ambulance): ")
 
-        result, reward, done, _ = await env.step(action)
+    patient = {
+        "symptoms": symptoms,
+        "urgency": urgency,
+        "arrival_type": arrival
+    }
 
-        total_reward += reward
+    state = await env.reset(patient)
 
-        print("[STEP]")
-        print(f"patient={patient}")
-        print(f"action={action}")
-        print(f"reward={reward}")
-        print(f"redirected={result['redirected']}")
-        print("")
+    print("[STEP] Initial State:", state)
 
-    await env.close()
+    # simple decision logic
+    if symptoms == "chest pain":
+        action = "Cardiology"
+    elif symptoms == "fever":
+        action = "General Medicine"
+    else:
+        action = "Orthopedics"
 
-    # normalization
-    max_reward_per_step = 4
-    max_total = steps * max_reward_per_step
-    final_score = total_reward / max_total
+    result, reward, done, _ = await env.step(action)
+
+    print("[STEP] Action:", action)
+    print("[STEP] Result:", result)
+    print("[STEP] Reward:", reward)
 
     print("[END]")
-    print(f"total_reward={total_reward}")
-    print(f"final_score={round(final_score, 3)}")
-
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(run())

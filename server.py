@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Optional, Dict
 from env.environment import TriageEnv
 
 app = FastAPI()
@@ -12,8 +13,8 @@ class ActionRequest(BaseModel):
 
 
 @app.post("/reset")
-async def reset():
-    return await env.reset()
+async def reset(patient: Optional[Dict] = None):
+    return await env.reset(patient)
 
 
 @app.post("/step")
