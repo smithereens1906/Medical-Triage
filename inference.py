@@ -1,25 +1,24 @@
-import os
-
-API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:7860")
-MODEL_NAME = os.getenv("MODEL_NAME", "dummy-model")
-HF_TOKEN = os.getenv("HF_TOKEN")
 import asyncio
 from env.environment import TriageEnv
 
 async def run():
-
     env = TriageEnv()
 
     print("[START]")
 
-    # 🔥 Take user input
-    symptoms = input("Enter symptoms (chest pain / fever / injury): ")
-    urgency = int(input("Enter urgency (1-100): "))
+    # 🔥 FULL USER INPUT
+    name = input("Enter patient name: ")
+    age = int(input("Enter age: "))
+    gender = input("Enter gender (male/female): ")
+    symptoms = input("Enter symptoms: ")
     arrival = input("Enter arrival type (walk-in / ambulance): ")
 
+    # ❌ NO manual urgency (auto-calculated)
     patient = {
+        "name": name,
+        "age": age,
+        "gender": gender,
         "symptoms": symptoms,
-        "urgency": urgency,
         "arrival_type": arrival
     }
 
@@ -27,13 +26,9 @@ async def run():
 
     print("[STEP] Initial State:", state)
 
-    # simple decision logic
-    if symptoms == "chest pain":
-        action = "Cardiology"
-    elif symptoms == "fever":
-        action = "General Medicine"
-    else:
-        action = "Orthopedics"
+    # 🔥 smarter decision logic
+    symptom_map = env.symptom_map
+    action = symptom_map.get(symptoms.lower(), "General Medicine")
 
     result, reward, done, _ = await env.step(action)
 
