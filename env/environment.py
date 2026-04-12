@@ -1,184 +1,112 @@
 import random
 
-class TriageEnv:
+class HospitalTriageEnv:
+
     def __init__(self):
-        self.available_doctors = 3
-        self.available_icu = 2
-        self.patient = None
-        self.done = False
 
-        # 🔥 Priority queue
-        self.queue = []
+        self.departments = [
+            "Cardiology",
+            "Respiratory",
+            "Neurology",
+            "General Medicine",
+            "Gastrointestinal",
+            "Orthopedics",
+            "Emergency"
+        ]
 
-        # Symptom → Department mapping
-        self.symptom_map = {
+        # KEEP SIMPLE (NO NORMALIZATION NOW)
+        self.symptom_department = {
             "chest pain": "Cardiology",
-            "shortness of breath": "Cardiology",
-            "irregular heartbeat": "Cardiology",
-            "palpitations": "Cardiology",
-            "sudden high blood pressure": "Cardiology",
-
             "breathing difficulty": "Respiratory",
-            "persistent cough": "Respiratory",
-            "wheezing": "Respiratory",
-            "asthma attack": "Respiratory",
-            "coughing blood": "Respiratory",
-
             "severe headache": "Neurology",
-            "dizziness": "Neurology",
-            "fainting": "Neurology",
-            "seizures": "Neurology",
-            "slurred speech": "Neurology",
-
             "fever": "General Medicine",
-            "vomiting": "General Medicine",
-            "nausea": "General Medicine",
-            "fatigue": "General Medicine",
-            "dehydration": "General Medicine",
-
-            "severe stomach pain": "Gastrointestinal",
-            "diarrhea": "Gastrointestinal",
-            "blood in stool": "Gastrointestinal",
-            "loss of appetite": "Gastrointestinal",
-
+            "gas": "Gastrointestinal",
             "fracture": "Orthopedics",
-            "severe bleeding": "Orthopedics",
-            "back pain": "Orthopedics",
-            "joint swelling": "Orthopedics",
-
-            "unconscious patient": "Emergency",
-            "severe allergic reaction": "Emergency"
+            "unconscious patient": "Emergency"
         }
 
-        self.symptoms_list = list(self.symptom_map.keys())
+        self.q_table = {}
 
-    # 🔥 urgency logic
-    def calculate_urgency(self, age, symptoms, arrival):
-        urgency = 30
+        self.alpha = 0.3
+        self.epsilon = 0.05
 
-        critical = ["unconscious patient", "seizures", "coughing blood", "severe allergic reaction"]
-        if symptoms in critical:
-            urgency += 50
+    # -------------------------
+    def get_state(self, patient):
+        return (patient["symptoms"], patient["arrival_type"])
 
-        if age > 60:
+    # -------------------------
+    def choose_action(self, state):
+
+        if random.uniform(0,1) < self.epsilon:
+            return random.choice(self.departments)
+
+        if state not in self.q_table:
+            self.q_table[state] = {d: 0 for d in self.departments}
+
+        return max(self.q_table[state], key=self.q_table[state].get)
+
+    # -------------------------
+    def calculate_urgency(self, patient):
+
+        urgency = 20
+
+        if patient["arrival_type"] == "ambulance":
+            urgency += 30
+
+        if patient["age"] > 60:
+            urgency += 10
+
+        if patient["duration_hours"] < 1:
             urgency += 20
-        elif age < 10:
-            urgency += 15
 
-        if arrival == "ambulance":
-            urgency += 20
+        return urgency
 
-        return min(urgency, 100)
+    # -------------------------
+    def reset(self, patient):
+        patient["urgency"] = self.calculate_urgency(patient)
+        return self.get_state(patient)
 
-    async def reset(self, patient_data=None):
-        self.done = False
+    # -------------------------
+    def step(self, patient, action):
 
-        # Generate or use input
-        if patient_data:
-            if "urgency" not in patient_data:
-                patient_data["urgency"] = self.calculate_urgency(
-                    patient_data["age"],
-                    patient_data["symptoms"],
-                    patient_data["arrival_type"]
-                )
-            self.patient = patient_data
-        else:
-            symptom = random.choice(self.symptoms_list)
-            age = random.randint(1, 90)
-            arrival = random.choice(["walk-in", "ambulance"])
+        correct_department = self.symptom_department.get(
+            patient["symptoms"],
+            "General Medicine"
+        )
 
-            self.patient = {
-                "name": "Unknown",
-                "age": age,
-                "gender": random.choice(["male", "female"]),
-                "symptoms": symptom,
-                "arrival_type": arrival,
-                "urgency": self.calculate_urgency(age, symptom, arrival)
-            }
-
-        # 🔥 Add to priority queue
-        self.queue.append(self.patient)
-        self.queue.sort(key=lambda x: x["urgency"], reverse=True)
-
-        position = self.queue.index(self.patient) + 1
-
-        return {
-            "patient": self.patient,
-            "queue_position": position,
-            "patients_waiting": len(self.queue) - 1
-        }
-
-    def route_department(self, symptoms):
-        return self.symptom_map.get(symptoms.lower(), "General Medicine")
-
-    async def step(self, action):
-        if self.done:
-            return {}, 0, True, {}
-
-        correct_department = self.route_department(self.patient["symptoms"])
-        urgency = self.patient["urgency"]
-        arrival = self.patient["arrival_type"]
+        # safety override
+        if patient["urgency"] > 70:
+            action = correct_department
 
         reward = 0
         redirected = False
 
-        # correct routing
         if action == correct_department:
-            reward += 1
-        else:
-            reward -= 1
-
-        # urgency bonus
-        if urgency > 70:
-            reward += 1
-
-        # ambulance bonus
-        if arrival == "ambulance":
-            reward += 1
-
-        # ICU logic
-        if urgency > 80:
-            if self.available_icu > 0:
-                self.available_icu -= 1
-                reward += 1
-            else:
-                redirected = True
-                reward -= 1
-
-        # 🔥 Priority queue processing
-        if self.available_doctors > 0 and len(self.queue) > 0:
-            self.available_doctors -= 1
-            served_patient = self.queue.pop(0)
-
-            if served_patient == self.patient:
-                reward += 1
-            else:
-                reward -= 2  # penalty for bad prioritization
-
+            reward += 10
         else:
             redirected = True
-            reward -= 1
+            reward -= 10
 
-        self.done = True
+        state = self.get_state(patient)
 
-        return {
-            "patient": self.patient,
+        if state not in self.q_table:
+            self.q_table[state] = {d: 0 for d in self.departments}
+
+        old_value = self.q_table[state][action]
+
+        # STRONG UPDATE
+        if action == correct_department:
+            new_value = old_value + self.alpha * (reward) + 2
+        else:
+            new_value = old_value + self.alpha * (reward) - 2
+
+        self.q_table[state][action] = new_value
+
+        result = {
             "correct_department": correct_department,
             "action": action,
-            "urgency": urgency,
-            "arrival_type": arrival,
-            "queue_length": len(self.queue),
-            "available_doctors": self.available_doctors,
-            "available_icu": self.available_icu,
+            "urgency": patient["urgency"],
             "redirected": redirected
-        }, reward, self.done, {}
-
-    async def get_state(self):
-        return {
-            "current_patient": self.patient,
-            "queue_length": len(self.queue),
-            "queue": self.queue
         }
 
-    async def close(self):
-        pass
+        return result, reward

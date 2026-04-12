@@ -1,42 +1,55 @@
-import asyncio
-from env.environment import TriageEnv
+from env.environment import HospitalTriageEnv
+import json
 
-async def run():
-    env = TriageEnv()
+env = HospitalTriageEnv()
 
-    print("[START]")
+# ✅ LOAD TRAINED MODEL (FIXED)
+try:
+    with open("q_table.json", "r") as f:
+        q_table_str = json.load(f)
 
-    # 🔥 FULL USER INPUT
-    name = input("Enter patient name: ")
-    age = int(input("Enter age: "))
-    gender = input("Enter gender (male/female): ")
-    symptoms = input("Enter symptoms: ")
-    arrival = input("Enter arrival type (walk-in / ambulance): ")
+        # 🔥 convert string keys back to tuple
+        env.q_table = {eval(k): v for k, v in q_table_str.items()}
 
-    # ❌ NO manual urgency (auto-calculated)
-    patient = {
-        "name": name,
-        "age": age,
-        "gender": gender,
-        "symptoms": symptoms,
-        "arrival_type": arrival
-    }
+        print("Loaded trained model ✅")
 
-    state = await env.reset(patient)
+except:
+    print("No trained model found ⚠️ Run train.py first")
 
-    print("[STEP] Initial State:", state)
+print("\n===== HOSPITAL TRIAGE SYSTEM =====\n")
 
-    # 🔥 smarter decision logic
-    symptom_map = env.symptom_map
-    action = symptom_map.get(symptoms.lower(), "General Medicine")
+name = input("Enter patient name: ")
+age = int(input("Enter age: "))
+gender = input("Enter gender: ")
+symptoms = input("Enter symptoms: ")
+arrival_type = input("Enter arrival type (walk-in / ambulance): ")
 
-    result, reward, done, _ = await env.step(action)
+while True:
+    try:
+        duration = int(input("How many hours problem exists?: "))
+        break
+    except ValueError:
+        print("Enter a valid number")
 
-    print("[STEP] Action:", action)
-    print("[STEP] Result:", result)
-    print("[STEP] Reward:", reward)
+patient = {
+    "name": name,
+    "age": age,
+    "gender": gender,
+    "symptoms": symptoms,
+    "arrival_type": arrival_type,
+    "duration_hours": duration
+}
 
-    print("[END]")
+state = env.reset(patient)
 
-if __name__ == "__main__":
-    asyncio.run(run())
+action = env.choose_action(state)
+
+result, reward = env.step(patient, action)
+
+print("\n--- TRIAGE RESULT ---\n")
+
+print("Correct Department:", result["correct_department"])
+print("AI Decision:", result["action"])
+print("Urgency:", result["urgency"])
+print("Redirected:", result["redirected"])
+print("Reward:", reward)

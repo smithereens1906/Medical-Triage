@@ -1,0 +1,128 @@
+{
+    "('fracture', 'walk-in')": {
+        "Cardiology": 0,
+        "Respiratory": 0,
+        "Neurology": -10.0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 0,
+        "Orthopedics": 1775.0,
+        "Emergency": -5.0
+    },
+    "('fever', 'ambulance')": {
+        "Cardiology": -5.0,
+        "Respiratory": 0,
+        "Neurology": 0,
+        "General Medicine": 1855.0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": 0,
+        "Emergency": -5.0
+    },
+    "('unconscious patient', 'ambulance')": {
+        "Cardiology": -10.0,
+        "Respiratory": -5.0,
+        "Neurology": -10.0,
+        "General Medicine": 0,
+        "Gastrointestinal": 0,
+        "Orthopedics": -5.0,
+        "Emergency": 1830.0
+    },
+    "('gas', 'ambulance')": {
+        "Cardiology": -5.0,
+        "Respiratory": 0,
+        "Neurology": 0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 1800.0,
+        "Orthopedics": 0,
+        "Emergency": -5.0
+    },
+    "('breathing difficulty', 'walk-in')": {
+        "Cardiology": -5.0,
+        "Respiratory": 1710.0,
+        "Neurology": 0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 0,
+        "Orthopedics": 0,
+        "Emergency": -5.0
+    },
+    "('chest pain', 'walk-in')": {
+        "Cardiology": 1760.0,
+        "Respiratory": 0,
+        "Neurology": 0,
+        "General Medicine": 0,
+        "Gastrointestinal": 0,
+        "Orthopedics": 0,
+        "Emergency": 0
+    },
+    "('gas', 'walk-in')": {
+        "Cardiology": 0,
+        "Respiratory": 0,
+        "Neurology": -10.0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 1700.0,
+        "Orthopedics": -5.0,
+        "Emergency": -5.0
+    },
+    "('fever', 'walk-in')": {
+        "Cardiology": 0,
+        "Respiratory": 0,
+        "Neurology": 0,
+        "General Medicine": 1790.0,
+        "Gastrointestinal": 0,
+        "Orthopedics": 0,
+        "Emergency": 0
+    },
+    "('severe headache', 'walk-in')": {
+        "Cardiology": -5.0,
+        "Respiratory": 0,
+        "Neurology": 1645.0,
+        "General Medicine": 0,
+        "Gastrointestinal": 0,
+        "Orthopedics": -10.0,
+        "Emergency": 0
+    },
+    "('unconscious patient', 'walk-in')": {
+        "Cardiology": -10.0,
+        "Respiratory": 0,
+        "Neurology": 0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": 0,
+        "Emergency": 1725.0
+    },
+    "('fracture', 'ambulance')": {
+        "Cardiology": -5.0,
+        "Respiratory": -5.0,
+        "Neurology": -5.0,
+        "General Medicine": 0,
+        "Gastrointestinal": 0,
+        "Orthopedics": 1855.0,
+        "Emergency": 0
+    },
+    "('breathing difficulty', 'ambulance')": {
+        "Cardiology": -15.0,
+        "Respiratory": 1630.0,
+        "Neurology": -5.0,
+        "General Medicine": 0,
+        "Gastrointestinal": 0,
+        "Orthopedics": -10.0,
+        "Emergency": -5.0
+    },
+    "('chest pain', 'ambulance')": {
+        "Cardiology": 1760.0,
+        "Respiratory": -5.0,
+        "Neurology": -5.0,
+        "General Medicine": 0,
+        "Gastrointestinal": 0,
+        "Orthopedics": 0,
+        "Emergency": -10.0
+    },
+    "('severe headache', 'ambulance')": {
+        "Cardiology": -5.0,
+        "Respiratory": -10.0,
+        "Neurology": 1900.0,
+        "General Medicine": 0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": -20.0,
+        "Emergency": 0
+    }
+}
