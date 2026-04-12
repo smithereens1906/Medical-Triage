@@ -14,7 +14,6 @@ class HospitalTriageEnv:
             "Emergency"
         ]
 
-        # KEEP SIMPLE (NO NORMALIZATION NOW)
         self.symptom_department = {
             "chest pain": "Cardiology",
             "breathing difficulty": "Respiratory",
@@ -30,11 +29,13 @@ class HospitalTriageEnv:
         self.alpha = 0.3
         self.epsilon = 0.05
 
-    # -------------------------
+    # REQUIRED FOR OPENENV
+    def state(self, patient):
+        return self.get_state(patient)
+
     def get_state(self, patient):
         return (patient["symptoms"], patient["arrival_type"])
 
-    # -------------------------
     def choose_action(self, state):
 
         if random.uniform(0,1) < self.epsilon:
@@ -45,7 +46,6 @@ class HospitalTriageEnv:
 
         return max(self.q_table[state], key=self.q_table[state].get)
 
-    # -------------------------
     def calculate_urgency(self, patient):
 
         urgency = 20
@@ -61,12 +61,10 @@ class HospitalTriageEnv:
 
         return urgency
 
-    # -------------------------
     def reset(self, patient):
         patient["urgency"] = self.calculate_urgency(patient)
         return self.get_state(patient)
 
-    # -------------------------
     def step(self, patient, action):
 
         correct_department = self.symptom_department.get(
@@ -94,11 +92,10 @@ class HospitalTriageEnv:
 
         old_value = self.q_table[state][action]
 
-        # STRONG UPDATE
         if action == correct_department:
-            new_value = old_value + self.alpha * (reward) + 2
+            new_value = old_value + self.alpha * reward + 2
         else:
-            new_value = old_value + self.alpha * (reward) - 2
+            new_value = old_value + self.alpha * reward - 2
 
         self.q_table[state][action] = new_value
 

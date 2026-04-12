@@ -9,7 +9,6 @@ arrival_types = ["walk-in", "ambulance"]
 
 print("Training started...\n")
 
-# STRONG TRAINING
 for _ in range(5000):
 
     symptom = random.choice(symptoms_list)
@@ -23,7 +22,6 @@ for _ in range(5000):
 
     state = env.reset(patient)
 
-    # FORCE CORRECT LEARNING MORE OFTEN
     if random.uniform(0,1) < 0.8:
         action = env.symptom_department[symptom]
     else:
@@ -33,7 +31,6 @@ for _ in range(5000):
 
 print("\nTraining Done ✅")
 
-# SAVE
 q_table_str = {str(k): v for k, v in env.q_table.items()}
 
 with open("q_table.json", "w") as f:
