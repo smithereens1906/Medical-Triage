@@ -3,16 +3,12 @@ import json
 
 env = HospitalTriageEnv()
 
-# ✅ LOAD TRAINED MODEL (FIXED)
+# LOAD MODEL
 try:
     with open("q_table.json", "r") as f:
         q_table_str = json.load(f)
-
-        # 🔥 convert string keys back to tuple
         env.q_table = {eval(k): v for k, v in q_table_str.items()}
-
         print("Loaded trained model ✅")
-
 except:
     print("No trained model found ⚠️ Run train.py first")
 
@@ -53,3 +49,11 @@ print("AI Decision:", result["action"])
 print("Urgency:", result["urgency"])
 print("Redirected:", result["redirected"])
 print("Reward:", reward)
+
+# 🔥 SAVE UPDATED Q-TABLE (IMPORTANT)
+q_table_str = {str(k): v for k, v in env.q_table.items()}
+
+with open("q_table.json", "w") as f:
+    json.dump(q_table_str, f, indent=4)
+
+print("\nUpdated learning saved 💾")
