@@ -1,3 +1,8 @@
+import os
+
+API_BASE_URL = os.getenv("API_BASE_URL", "default")
+MODEL_NAME = os.getenv("MODEL_NAME", "default")
+HF_TOKEN = os.getenv("HF_TOKEN")
 from env.environment import TriageEnv
 import json
 

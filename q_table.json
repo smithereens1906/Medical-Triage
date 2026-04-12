@@ -1,128 +1,128 @@
 {
-    "('chest pain', 'ambulance')": {
-        "Cardiology": 1830.0,
-        "Respiratory": -5.0,
-        "Neurology": 0,
-        "General Medicine": 0,
-        "Gastrointestinal": -5.0,
-        "Orthopedics": -10.0,
-        "Emergency": 0
-    },
-    "('breathing difficulty', 'walk-in')": {
-        "Cardiology": 0,
-        "Respiratory": 1800.0,
-        "Neurology": -5.0,
-        "General Medicine": -5.0,
-        "Gastrointestinal": 0,
-        "Orthopedics": 0,
-        "Emergency": 0
-    },
     "('fracture', 'walk-in')": {
-        "Cardiology": -10.0,
-        "Respiratory": 0,
-        "Neurology": 0,
-        "General Medicine": 0,
-        "Gastrointestinal": 0,
-        "Orthopedics": 1770.0,
-        "Emergency": 0
-    },
-    "('gas', 'walk-in')": {
-        "Cardiology": 0,
-        "Respiratory": 0,
-        "Neurology": 0,
-        "General Medicine": -5.0,
-        "Gastrointestinal": 1635.0,
-        "Orthopedics": 0,
-        "Emergency": -5.0
-    },
-    "('severe headache', 'ambulance')": {
         "Cardiology": -5.0,
-        "Respiratory": -5.0,
-        "Neurology": 1770.0,
+        "Respiratory": 0,
+        "Neurology": 0,
         "General Medicine": 0,
         "Gastrointestinal": -5.0,
-        "Orthopedics": 0,
-        "Emergency": -5.0
+        "Orthopedics": 1955.0,
+        "Emergency": -15.0
     },
     "('gas', 'ambulance')": {
-        "Cardiology": -10.0,
-        "Respiratory": -20.0,
-        "Neurology": -5.0,
-        "General Medicine": -15.0,
-        "Gastrointestinal": 1790.0,
-        "Orthopedics": 0,
-        "Emergency": 0
-    },
-    "('severe headache', 'walk-in')": {
-        "Cardiology": -15.0,
+        "Cardiology": 0,
         "Respiratory": 0,
-        "Neurology": 1595.0,
+        "Neurology": 0,
         "General Medicine": 0,
-        "Gastrointestinal": 0,
+        "Gastrointestinal": 1690.0,
         "Orthopedics": 0,
+        "Emergency": -10.0
+    },
+    "('chest pain', 'ambulance')": {
+        "Cardiology": 1830.0,
+        "Respiratory": 0,
+        "Neurology": -5.0,
+        "General Medicine": 0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": 0,
+        "Emergency": -5.0
+    },
+    "('breathing difficulty', 'walk-in')": {
+        "Cardiology": -5.0,
+        "Respiratory": 1760.0,
+        "Neurology": -5.0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 0,
+        "Orthopedics": -5.0,
         "Emergency": 0
     },
     "('unconscious patient', 'ambulance')": {
-        "Cardiology": -10.0,
+        "Cardiology": -5.0,
+        "Respiratory": 0,
+        "Neurology": -5.0,
+        "General Medicine": 0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": 0,
+        "Emergency": 1965.0
+    },
+    "('chest pain', 'walk-in')": {
+        "Cardiology": 1700.0,
+        "Respiratory": 0,
+        "Neurology": 0,
+        "General Medicine": -10.0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": -5.0,
+        "Emergency": -5.0
+    },
+    "('unconscious patient', 'walk-in')": {
+        "Cardiology": -5.0,
         "Respiratory": 0,
         "Neurology": 0,
         "General Medicine": 0,
         "Gastrointestinal": 0,
         "Orthopedics": 0,
-        "Emergency": 1980.0
+        "Emergency": 1850.0
     },
-    "('chest pain', 'walk-in')": {
-        "Cardiology": 1795.0,
+    "('fever', 'walk-in')": {
+        "Cardiology": -5.0,
         "Respiratory": 0,
         "Neurology": 0,
+        "General Medicine": 1700.0,
+        "Gastrointestinal": 0,
+        "Orthopedics": -5.0,
+        "Emergency": 0
+    },
+    "('gas', 'walk-in')": {
+        "Cardiology": -5.0,
+        "Respiratory": 0,
+        "Neurology": -5.0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 1705.0,
+        "Orthopedics": 0,
+        "Emergency": -5.0
+    },
+    "('severe headache', 'walk-in')": {
+        "Cardiology": -5.0,
+        "Respiratory": 0,
+        "Neurology": 1680.0,
+        "General Medicine": -10.0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": 0,
+        "Emergency": 0
+    },
+    "('fracture', 'ambulance')": {
+        "Cardiology": 0,
+        "Respiratory": 0,
+        "Neurology": -5.0,
         "General Medicine": 0,
         "Gastrointestinal": -5.0,
+        "Orthopedics": 1665.0,
+        "Emergency": -5.0
+    },
+    "('severe headache', 'ambulance')": {
+        "Cardiology": 0,
+        "Respiratory": 0,
+        "Neurology": 1640.0,
+        "General Medicine": 0,
+        "Gastrointestinal": -5.0,
+        "Orthopedics": 0,
+        "Emergency": 0
+    },
+    "('breathing difficulty', 'ambulance')": {
+        "Cardiology": -5.0,
+        "Respiratory": 1830.0,
+        "Neurology": 0,
+        "General Medicine": -5.0,
+        "Gastrointestinal": 0,
         "Orthopedics": 0,
         "Emergency": 0
     },
     "('fever', 'ambulance')": {
-        "Cardiology": 0,
+        "Cardiology": -10.0,
         "Respiratory": -5.0,
         "Neurology": -5.0,
-        "General Medicine": 1695.0,
-        "Gastrointestinal": -10.0,
+        "General Medicine": 1810.0,
+        "Gastrointestinal": 0,
         "Orthopedics": -5.0,
         "Emergency": 0
-    },
-    "('breathing difficulty', 'ambulance')": {
-        "Cardiology": -15.0,
-        "Respiratory": 1740.0,
-        "Neurology": 0,
-        "General Medicine": 0,
-        "Gastrointestinal": 0,
-        "Orthopedics": 0,
-        "Emergency": -10.0
-    },
-    "('fever', 'walk-in')": {
-        "Cardiology": 0,
-        "Respiratory": -5.0,
-        "Neurology": -5.0,
-        "General Medicine": 1640.0,
-        "Gastrointestinal": -5.0,
-        "Orthopedics": 0,
-        "Emergency": 0
-    },
-    "('unconscious patient', 'walk-in')": {
-        "Cardiology": 0,
-        "Respiratory": 0,
-        "Neurology": 0,
-        "General Medicine": 0,
-        "Gastrointestinal": 0,
-        "Orthopedics": 0,
-        "Emergency": 1910.0
-    },
-    "('fracture', 'ambulance')": {
-        "Cardiology": 0,
-        "Respiratory": -5.0,
-        "Neurology": -5.0,
-        "General Medicine": 0,
-        "Gastrointestinal": -10.0,
-        "Orthopedics": 1810.0,
-        "Emergency": -5.0
     }
 }
