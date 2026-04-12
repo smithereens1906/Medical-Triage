@@ -1,9 +1,8 @@
-from env.environment import HospitalTriageEnv
+from env.environment import TriageEnv
 import json
 
-env = HospitalTriageEnv()
+env = TriageEnv()
 
-# LOAD MODEL
 try:
     with open("q_table.json", "r") as f:
         q_table_str = json.load(f)

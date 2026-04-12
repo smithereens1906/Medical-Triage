@@ -1,6 +1,6 @@
 import random
 
-class HospitalTriageEnv:
+class TriageEnv:
 
     def __init__(self):
 
@@ -29,7 +29,6 @@ class HospitalTriageEnv:
         self.alpha = 0.3
         self.epsilon = 0.05
 
-    # REQUIRED FOR OPENENV
     def state(self, patient):
         return self.get_state(patient)
 
@@ -72,7 +71,6 @@ class HospitalTriageEnv:
             "General Medicine"
         )
 
-        # safety override
         if patient["urgency"] > 70:
             action = correct_department
 

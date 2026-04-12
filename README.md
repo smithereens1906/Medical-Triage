@@ -6,61 +6,43 @@ colorTo: green
 sdk: docker
 app_port: 7860
 ---
-# 🏥 Medical Appointment Triage System
+
+# 🏥 Medical Triage System
 
 ## 📌 Overview
-This project simulates a real-world hospital triage system where patients are assigned to departments, prioritized based on urgency, and managed under resource constraints.
-
-The system uses a simulation environment and decision logic to optimize patient handling and maximize efficiency.
+This project simulates a hospital triage system using reinforcement learning.  
+Patients are assigned to appropriate departments based on symptoms, urgency, and arrival type.
 
 ---
 
 ## 🚀 Features
 
-### ✅ Core Features
 - Department Routing (symptoms → correct department)
-- Urgency Scoring (1–100 scale)
-- Doctor Assignment (limited availability)
-- Priority Scheduling
-
-### 🔥 Advanced Features
-- Ambulance Priority System 🚑
-- Resource Constraints (ICU beds, doctors)
-- Patient Redirection (when resources unavailable)
-- Simulation Engine (multiple patients)
+- Urgency Scoring (based on age, arrival type, duration)
+- Reinforcement Learning (Q-learning)
+- Adaptive decision-making (improves over time)
 
 ---
 
 ## 🧠 How It Works
 
-1. A patient is generated with:
+1. Patient data is input:
    - Symptoms
-   - Urgency level
-   - Arrival type (walk-in / ambulance)
+   - Arrival type
+   - Age
+   - Duration
 
 2. The system:
-   - Routes patient to correct department
-   - Assigns available resources
-   - Applies priority logic (urgency + ambulance)
-
-3. If resources are unavailable:
-   - Patient is redirected
+   - Computes urgency
+   - Selects department using Q-learning
+   - Updates Q-values based on reward
 
 ---
 
-## 📊 Scoring System
+## 📊 Reward System
 
-### ✅ Rewards:
-- Correct department assignment (+1)
-- High urgency handling (>70) (+1)
-- Ambulance priority (+1)
-- ICU allocation for critical cases (+1)
+- Correct decision → positive reward
+- Wrong decision → negative reward
+- High urgency handled → bonus reward
 
-### ❌ Penalties:
-- Wrong department (-1)
-- No available doctor (-1)
-- ICU unavailable for critical patient (-1)
-
-### 📈 Final Score:
-- Normalized between **0 and 1**
-- Formula:
+---

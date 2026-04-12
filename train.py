@@ -1,8 +1,8 @@
-from env.environment import HospitalTriageEnv
+from env.environment import TriageEnv
 import random
 import json
 
-env = HospitalTriageEnv()
+env = TriageEnv()
 
 symptoms_list = list(env.symptom_department.keys())
 arrival_types = ["walk-in", "ambulance"]
